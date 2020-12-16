@@ -1,5 +1,5 @@
-import { stringifyError } from "./error";
-import HTTPError from "./http-error";
+import { stringifyError } from './error';
+import HTTPError from './http-error';
 
 /**
  * Make a GET request, and decode the response body as JSON
@@ -17,10 +17,10 @@ async function getJSON(input: RequestInfo, init?: RequestInit) {
     throw new Error(
       stringifyError(
         `Networking/getJSON: An error was encountered while fetching ${JSON.stringify(
-          input
+          input,
         )}`,
-        err
-      )
+        err,
+      ),
     );
   }
 }
@@ -34,7 +34,7 @@ async function getJSON(input: RequestInfo, init?: RequestInit) {
  */
 export async function apiCall(
   path: string,
-  init?: RequestInit
+  init?: RequestInit,
 ): Promise<unknown> {
   let response;
   let json;
@@ -47,11 +47,11 @@ export async function apiCall(
     throw new Error(
       stringifyError(
         `Networking/apiCall: An error was encountered while making api call to ${path}`,
-        err
-      )
+        err,
+      ),
     );
   }
   if (!response.ok)
-    throw new HTTPError(response, "Problem while making API call");
-  return json;
+    throw new HTTPError(response, 'Problem while making API call');
+  return json as unknown;
 }
